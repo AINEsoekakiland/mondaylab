@@ -71,40 +71,45 @@ body{
 /* ── 流れ星 ── */
 .shooting-star{
   position:absolute;
-  width:80px;height:1.5px;
-  background:linear-gradient(to left, rgba(255,255,255,0.9), rgba(170,220,255,0.5), transparent);
-  border-radius:1px;
+  width:80px;
+  height:2px;
+
+  background:linear-gradient(
+    to left,
+    rgba(255,255,255,0.95),
+    rgba(170,220,255,0.6),
+    transparent
+  );
+
+  border-radius:999px;
   opacity:0;
   pointer-events:none;
-  transform-origin:right center;
+
+  transform:rotate(135deg);
+
+  box-shadow:0 0 10px rgba(180,220,255,0.35);
+
   animation:shoot linear forwards;
 }
 @keyframes shoot{
   0%{
     opacity:0;
-    transform:
-      translate(0,0)
-      rotate(35deg)
-      scaleX(0.7);
+    translate:0 0;
   }
 
-  10%{
+  8%{
     opacity:1;
   }
 
-  60%{
+  70%{
     opacity:0.9;
   }
 
   100%{
     opacity:0;
-    transform:
-      translate(-320px,180px)
-      rotate(35deg)
-      scaleX(1);
+    translate:-340px 220px;
   }
 }
-
 /* ── 共通 ── */
 .content{position:relative;z-index:1}
 section{padding:0 28px}
@@ -480,7 +485,12 @@ const y=Math.random()*20;
   const angle=135;
   const dur=0.8+Math.random()*0.5;
   const len=60+Math.random()*50;
-  el.style.cssText=`left:${x}%;top:${y}%;width:${len}px;transform:rotate(${angle}deg);animation-duration:${dur}s`;
+  el.style.cssText=`
+  left:${x}%;
+  top:${y}%;
+  width:${len}px;
+  animation-duration:${dur}s
+`;
   bg.appendChild(el);
   setTimeout(()=>el.remove(), dur*1000+100);
 }
