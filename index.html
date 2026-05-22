@@ -23,387 +23,87 @@ body{
   overflow-x:hidden;
 }
 
+/* ── フェード用 ── */
+.fade-section{opacity:0;transform:translateY(20px);transition:opacity 1.2s ease, transform 1.2s ease}
+.fade-section.visible{opacity:1;transform:translateY(0)}
+
 /* ── 背景演出 ── */
 .bg-fixed{
   position:fixed;
   inset:0;
   pointer-events:none;
   z-index:0;
-
-  background:linear-gradient(
-    to bottom,
-    #1A3551,
-    #122B45,
-    #0D1B2A,
-    #081421,
-    #050D17
-  );
-
+  background:linear-gradient(to bottom, #1A3551, #122B45, #0D1B2A, #081421, #050D17);
   animation:bgFloat 18s ease-in-out infinite;
 }
 .bg-light{
   position:absolute;inset:0;
   background:radial-gradient(ellipse at 12% 8%, rgba(140,170,220,0.05), transparent 55%),
-             radial-gradient(ellipse at 85% 90%, rgba(196,168,130,0.025), transparent 40%);
+              radial-gradient(ellipse at 85% 90%, rgba(196,168,130,0.025), transparent 40%);
 }
 .bg-dust{position:absolute;inset:0;overflow:hidden}
-.bg-dust span{
-  position:absolute;width:1px;height:1px;
-  border-radius:50%;background:rgba(160,185,220,0.12);
-}
+.bg-dust span{position:absolute;width:1px;height:1px;border-radius:50%;background:rgba(160,185,220,0.12)}
 .bg-stars{position:absolute;inset:0;overflow:hidden}
-.bg-stars span{
-  position:absolute;
-  border-radius:50%;background:rgba(200,220,255,0.25);
-  animation:twinkle 4s ease-in-out infinite alternate;
-  starFloat 18s ease-in-out infinite;
-}
-.bg-stars .s1{
-  width:2px;
-  height:2px;
-  background:rgba(150,180,255,0.22);
-}
+.bg-stars span{position:absolute;border-radius:50%;animation:twinkle 4s ease-in-out infinite alternate, starFloat 18s ease-in-out infinite}
+.bg-stars .s1{width:2px; height:2px; background:rgba(150,180,255,0.22)}
+.bg-stars .s2{width:3px; height:3px; background:rgba(210,225,255,0.32)}
+.bg-stars .s3{width:4.5px; height:4.5px; background:rgba(255,255,255,0.55); box-shadow: 0 0 6px rgba(200,220,255,0.25), 0 0 14px rgba(180,210,255,0.18); filter:blur(0.2px)}
 
-.bg-stars .s2{
-  width:3px;
-  height:3px;
-  background:rgba(210,225,255,0.32);
-}
-
-.bg-stars .s3{
-  width:4.5px;
-  height:4.5px;
-
-  background:rgba(255,255,255,0.55);
-
-  box-shadow:
-    0 0 6px rgba(200,220,255,0.25),
-    0 0 14px rgba(180,210,255,0.18);
-
-  filter:blur(0.2px);
-}
 @keyframes twinkle{0%{opacity:0.12}100%{opacity:0.6}}
-  
-  @keyframes starFloat{
-  0%{
-    transform:translate(0px,0px);
-  }
-
-  50%{
-    transform:translate(2px,-3px);
-  }
-
-  100%{
-    transform:translate(0px,0px);
-  }
-}
-
-  @keyframes bgFloat{
-  0%{
-    transform:translateY(0px);
-  }
-
-  50%{
-    transform:translateY(-6px);
-  }
-
-  100%{
-    transform:translateY(0px);
-  }
-}
+@keyframes starFloat{0%{transform:translate(0px,0px)}50%{transform:translate(2px,-3px)}100%{transform:translate(0px,0px)}}
+@keyframes bgFloat{0%{transform:translateY(0px)}50%{transform:translateY(-6px)}100%{transform:translateY(0px)}}
 
 /* ── 流れ星 ── */
-.shooting-star{
-  position:absolute;
-  width:80px;
-  height:2px;
+.shooting-star{position:absolute;height:2px;background:linear-gradient(to left, rgba(255,255,255,0.95), rgba(170,220,255,0.6), transparent);border-radius:999px;opacity:0;pointer-events:none;transform:rotate(135deg);box-shadow:0 0 10px rgba(180,220,255,0.35);animation:shoot linear forwards}
+@keyframes shoot{0%{opacity:0;translate:0 0}8%{opacity:1}70%{opacity:0.9}100%{opacity:0;translate:-340px 220px}}
 
-  background:linear-gradient(
-    to left,
-    rgba(255,255,255,0.95),
-    rgba(170,220,255,0.6),
-    transparent
-  );
-
-  border-radius:999px;
-  opacity:0;
-  pointer-events:none;
-
-  transform:rotate(135deg);
-
-  box-shadow:0 0 10px rgba(180,220,255,0.35);
-
-  animation:shoot linear forwards;
-}
-@keyframes shoot{
-  0%{
-    opacity:0;
-    translate:0 0;
-  }
-
-  8%{
-    opacity:1;
-  }
-
-  70%{
-    opacity:0.9;
-  }
-
-  100%{
-    opacity:0;
-    translate:-340px 220px;
-  }
-}
 /* ── 共通 ── */
 .content{position:relative;z-index:1}
 section{padding:0 28px}
-.rule{
-  height:1px;
-  background:linear-gradient(to right, rgba(139,167,191,0.18), transparent);
-  margin:0 auto;
-  max-width:560px;
-}
-.section-label{
-  display:flex;align-items:center;gap:12px;
-  max-width:560px;margin:0 auto 24px;
-}
+.rule{height:1px;background:linear-gradient(to right, transparent, rgba(139,167,191,0.22), transparent);margin:0 auto;max-width:560px;opacity:0.7}
+.section-label{display:flex;align-items:center;gap:12px;max-width:560px;margin:0 auto 24px}
 .section-label .line{flex:1;height:1px;background:rgba(139,167,191,0.12)}
-.section-label span{
-  font-size:15px;letter-spacing:5px;
-  color:rgba(122,143,160,0.4);
-  white-space:nowrap;
-}
+.section-label span{font-size:15px;letter-spacing:5px;color:rgba(122,143,160,0.4);white-space:nowrap}
 
 /* ── Hero ── */
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:center;
-  text-align:center;
-  padding:80px 28px 0;
-  position:relative;
-}
-.hero-silhouette{
-  position:absolute;
-  bottom:0;left:0;right:0;
-  width:100%;
-  max-height:35vh;
-  object-fit:cover;
-  object-position:bottom;
-  opacity:0.85;
-  pointer-events:none;
-  mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);
-  -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);
-  animation:silhouetteBreath 14s ease-in-out infinite;
-}
-.hero-eyebrow{
-  font-size:16px;letter-spacing:6px;
-  color:rgba(122,143,160,0.45);
-  margin-bottom:20px;
-  animation:fadeUp 1.2s ease both;
-}
-.hero-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:36px;font-weight:300;
-  letter-spacing:4px;
-  color:rgba(220,230,240,0.92);
-  margin-bottom:16px;
-  animation:fadeUp 1.2s 0.2s ease both;
-}
-.hero-sub{
-  font-size:15px;
-  color:rgba(160,178,195,0.6);
-  letter-spacing:2px;
-  line-height:2.2;
-  margin-bottom:48px;
-  animation:fadeUp 1.2s 0.4s ease both;
-}
-.hero-concept{
-  font-size:15px;
-  letter-spacing:3px;
-  color:rgba(196,168,130,0.5);
-  animation:fadeUp 1.2s 0.6s ease both;
-}
-  <div class="scroll-note">observe quietly</div>
-  .scroll-note{
-  position:absolute;
-  bottom:24px;
+.hero{min-height:108vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 28px 0;position:relative}
+.hero-silhouette{position:absolute;bottom:0;width:100%;max-height:35vh;object-fit:cover;object-position:bottom;opacity:0.85;pointer-events:none;mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);-webkit-mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);animation:silhouetteBreath 14s ease-in-out infinite}
+.hero-eyebrow{font-size:16px;letter-spacing:6px;color:rgba(122,143,160,0.45);margin-bottom:20px;animation:fadeUp 1.2s ease both}
+.hero-title{font-family:'Noto Serif JP',serif;font-size:36px;font-weight:300;letter-spacing:6px;color:rgba(220,230,240,0.92);margin-bottom:16px;animation:fadeUp 1.2s 0.2s ease both}
+.hero-sub{font-size:15px;color:rgba(160,178,195,0.6);letter-spacing:2px;line-height:2.2;margin-bottom:48px;animation:fadeUp 1.2s 0.4s ease both}
+.hero-concept{font-size:15px;letter-spacing:3px;color:rgba(196,168,130,0.5);animation:fadeUp 1.2s 0.6s ease both}
+.scroll-note{position:absolute;bottom:24px;font-size:11px;letter-spacing:4px;color:rgba(160,180,200,0.22);animation:fadePulse 4s ease-in-out infinite}
 
-  font-size:11px;
-  letter-spacing:4px;
+@keyframes fadePulse{0%{opacity:0.12}50%{opacity:0.32}100%{opacity:0.12}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes silhouetteBreath{0%,100%{transform:scale(1) translateY(0px);opacity:0.82}50%{transform:scale(1.015) translateY(-2px);opacity:0.88}}
 
-  color:rgba(160,180,200,0.22);
-
-  animation:fadePulse 4s ease-in-out infinite;
-}
-  @keyframes fadePulse{
-  0%{opacity:0.12}
-  50%{opacity:0.32}
-  100%{opacity:0.12}
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-  @keyframes silhouetteBreath{
-  0%{
-    transform:scale(1) translateY(0px);
-    opacity:0.82;
-  }
-
-  50%{
-    transform:scale(1.015) translateY(-2px);
-    opacity:0.88;
-  }
-
-  100%{
-    transform:scale(1) translateY(0px);
-    opacity:0.82;
-  }
-}
-}
-
-/* ── About ── */
-.about{
-  padding:80px 28px;
-  max-width:560px;
-  margin:0 auto;
-}
-.about p{
-  font-size:16px;
-  color:rgba(180,195,210,0.65);
-  line-height:2.4;
-  margin-bottom:18px;
-}
-.about .quiet{
-  font-size:16px;
-  color:rgba(140,160,178,0.45);
-  margin-top:32px;
-  letter-spacing:1px;
-  line-height:2.2;
-}
-
-/* ── Features ── */
-.features{
-  padding:80px 28px;
-  max-width:560px;
-  margin:0 auto;
-}
-.feature-card{
-  background:linear-gradient(170deg, rgba(17,31,48,0.8), rgba(13,26,40,0.6));
-  border:0.5px solid rgba(139,167,191,0.1);
-  border-radius:3px;
-  padding:24px 22px;
-  margin-bottom:14px;
-  transform:rotate(var(--tilt,0deg));
-}
-.feature-card .num{
-  font-size:15px;letter-spacing:3px;
-  color:rgba(139,167,191,0.35);
-  margin-bottom:8px;
-}
-.feature-card h3{
-  font-size:16px;font-weight:400;
-  color:rgba(200,215,228,0.8);
-  letter-spacing:1px;
-  margin-bottom:8px;
-}
-.feature-card p{
-  font-size:16px;
-  color:rgba(140,160,178,0.5);
-  line-height:2;
-}
-
-/* ── CTA（テスター募集） ── */
-.cta{
-  padding:96px 28px;
-  text-align:center;
-}
-.cta-box{
-  max-width:480px;
-  margin:0 auto;
-  padding:40px 32px;
-  border:0.5px solid rgba(196,168,130,0.15);
-  border-radius:3px;
-  background:rgba(14,29,44,0.5);
-}
-.cta-box .label{
-  font-size:15px;letter-spacing:4px;
-  color:rgba(196,168,130,0.45);
-  margin-bottom:16px;
-}
-.cta-box h2{
-  font-family:'Noto Serif JP',serif;
-  font-size:22px;font-weight:300;
-  color:rgba(220,230,240,0.85);
-  letter-spacing:2px;
-  margin-bottom:12px;
-}
-.cta-box p{
-  font-size:16px;
-  color:rgba(160,178,195,0.55);
-  line-height:2.2;
-  margin-bottom:28px;
-}
-.cta-btn{
-  display:inline-block;
-  padding:14px 40px;
-  background:rgba(139,167,191,0.12);
-  border:0.5px solid rgba(139,167,191,0.25);
-  border-radius:4px;
-  color:rgba(200,215,228,0.8);
-  font-size:15px;font-weight:400;
-  letter-spacing:2px;
-  text-decoration:none;
-  transition:background 0.3s, border-color 0.3s;
-}
-.cta-btn:hover{
-  background:rgba(139,167,191,0.2);
-  border-color:rgba(139,167,191,0.4);
-}
-
-/* ── Footer ── */
-footer{
-  padding:48px 28px 64px;
-  text-align:center;
-  border-top:1px solid rgba(139,167,191,0.08);
-}
-footer .studio{
-  font-size:15px;letter-spacing:3px;
-  color:rgba(122,143,160,0.4);
-  margin-bottom:12px;
-}
-footer nav{
-  display:flex;justify-content:center;gap:24px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
-}
-footer nav a{
-  font-size:15px;
-  color:rgba(139,167,191,0.5);
-  text-decoration:none;
-  letter-spacing:1px;
-  border-bottom:1px solid transparent;
-  transition:border-color 0.3s;
-}
+/* ── 各セクション ── */
+.about,.features,.cta{padding:80px 28px;max-width:560px;margin:0 auto}
+.about p{font-size:16px;color:rgba(180,195,210,0.65);line-height:2.4;margin-bottom:18px}
+.about .quiet{font-size:16px;color:rgba(140,160,178,0.45);margin-top:32px;letter-spacing:1px;line-height:2.2}
+.feature-card{background:linear-gradient(170deg, rgba(17,31,48,0.8), rgba(13,26,40,0.6));border:0.5px solid rgba(139,167,191,0.1);border-radius:3px;padding:24px 22px;margin-bottom:14px;transform:rotate(var(--tilt,0deg))}
+.feature-card .num{font-size:15px;letter-spacing:3px;color:rgba(139,167,191,0.35);margin-bottom:8px}
+.feature-card h3{font-size:16px;font-weight:400;color:rgba(200,215,228,0.8);letter-spacing:1px;margin-bottom:8px}
+.feature-card p{font-size:16px;color:rgba(140,160,178,0.5);line-height:2}
+.cta-box{max-width:480px;margin:0 auto;padding:40px 32px;border:0.5px solid rgba(196,168,130,0.15);border-radius:3px;background:rgba(14,29,44,0.5)}
+.cta-box .label{font-size:15px;letter-spacing:4px;color:rgba(196,168,130,0.45);margin-bottom:16px}
+.cta-box h2{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:300;color:rgba(220,230,240,0.85);letter-spacing:2px;margin-bottom:12px}
+.cta-box p{font-size:16px;color:rgba(160,178,195,0.55);line-height:2.2;margin-bottom:28px}
+.cta-btn{display:inline-block;padding:14px 40px;background:rgba(139,167,191,0.12);border:0.5px solid rgba(139,167,191,0.25);border-radius:4px;color:rgba(200,215,228,0.8);font-size:15px;font-weight:400;letter-spacing:2px;text-decoration:none;transition:background 0.3s, border-color 0.3s}
+.cta-btn:hover{background:rgba(139,167,191,0.2);border-color:rgba(139,167,191,0.4)}
+footer{padding:48px 28px 64px;text-align:center;border-top:1px solid rgba(139,167,191,0.08)}
+footer .studio{font-size:15px;letter-spacing:3px;color:rgba(122,143,160,0.4);margin-bottom:12px}
+footer nav{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:16px}
+footer nav a{font-size:15px;color:rgba(139,167,191,0.5);text-decoration:none;letter-spacing:1px;border-bottom:1px solid transparent;transition:border-color 0.3s}
 footer nav a:hover{border-bottom-color:rgba(139,167,191,0.3)}
-footer .copy{
-  font-size:16px;
-  color:rgba(122,143,160,0.25);
-  letter-spacing:1px;
-}
+footer .copy{font-size:16px;color:rgba(122,143,160,0.25);letter-spacing:1px}
 
-/* ── Responsive ── */
-@media(max-width:480px){
-  .hero-title{font-size:22px;letter-spacing:2px}
-  .hero{padding:60px 20px}
-  section{padding:0 20px}
-  .cta-box{padding:32px 24px}
-}
+@media(max-width:480px){.hero-title{font-size:22px;letter-spacing:2px}.hero{padding:60px 20px}section{padding:0 20px}.cta-box{padding:32px 24px}}
 </style>
 </head>
 <body>
 
-<!-- 背景 -->
 <div class="bg-fixed">
   <div class="bg-light"></div>
   <div class="bg-dust" id="dust"></div>
@@ -411,105 +111,62 @@ footer .copy{
 </div>
 
 <div class="content">
-
-  <!-- ── Hero ── -->
   <section class="hero">
     <div class="hero-eyebrow">NIGHT OBSERVATORY</div>
     <h1 class="hero-title">月曜をラクにする研究所</h1>
-    <p class="hero-sub">
-      評価しない。急がせない。<br>
-      夜に呼吸を戻す場所。
-    </p>
+    <p class="hero-sub">評価しない。急がせない。<br>夜に呼吸を戻す場所。</p>
     <p class="hero-concept">─ 夜の脳疲労観測所 ─</p>
     <img class="hero-silhouette" src="./silhouette.png" alt="">
+    <div class="scroll-note">observe quietly</div>
   </section>
 
   <div class="rule"></div>
 
-  <!-- ── About ── -->
-  <section class="about">
+  <section class="about fade-section">
     <div class="section-label">
-      <div class="line"></div>
-      <span>このアプリについて</span>
-      <div class="line"></div>
+      <div class="line"></div><span>このアプリについて</span><div class="line"></div>
     </div>
-
-    <p>
-      眠れない夜に、<br>
-      頑張らなくていいアプリ。
-    </p>
-    <p>
-      習慣化しなくていい。<br>
-      クリアしなくていい。<br>
-      開けない日があっても大丈夫。
-    </p>
-    <p>
-      ただ静かに、<br>
-      自分の脳の疲れを観測して、<br>
-      そのまま眠りに落ちるための場所です。
-    </p>
-    <p class="quiet">
-      スコアも、ランキングも、改善率もありません。<br>
-      あなたのあらゆる状態を、<br>
-      この研究所は全肯定します。
-    </p>
+    <p>眠れない夜に、<br>頑張らなくていいアプリ。</p>
+    <p>習慣化しなくていい。<br>クリアしなくていい。<br>開けない日があっても大丈夫。</p>
+    <p>ただ静かに、<br>自分の脳の疲れを観測して、<br>そのまま眠りに落ちるための場所です。</p>
+    <p class="quiet">スコアも、ランキングも、改善率もありません。<br>あなたのあらゆる状態を、<br>この研究所は全肯定します。</p>
   </section>
 
   <div class="rule"></div>
 
-  <!-- ── Features ── -->
-  <section class="features">
+  <section class="features fade-section">
     <div class="section-label">
-      <div class="line"></div>
-      <span>観測内容</span>
-      <div class="line"></div>
+      <div class="line"></div><span>観測内容</span><div class="line"></div>
     </div>
-
     <div class="feature-card" style="--tilt:-0.6deg">
-      <div class="num">001</div>
-      <h3>空模様チェック</h3>
+      <div class="num">001</div><h3>空模様チェック</h3>
       <p>今夜の脳の天気を、記号で静かに観測する。<br>改善も助言もない、ただの記録。</p>
     </div>
-
     <div class="feature-card" style="--tilt:0.4deg">
-      <div class="num">002</div>
-      <h3>観測タスク</h3>
+      <div class="num">002</div><h3>観測タスク</h3>
       <p>紙片を集める。レンズを拭く。<br>スコアのない、寝落ちするための単純作業。</p>
     </div>
-
     <div class="feature-card" style="--tilt:-0.3deg">
-      <div class="num">003</div>
-      <h3>資料室</h3>
+      <div class="num">003</div><h3>資料室</h3>
       <p>観測の翌日に届く、圧倒的につまらない研究資料。<br>読まなくて大丈夫です。</p>
     </div>
-
     <div class="feature-card" style="--tilt:0.7deg">
-      <div class="num">004</div>
-      <h3>呼吸する輪</h3>
+      <div class="num">004</div><h3>呼吸する輪</h3>
       <p>脳疲労の状態に応じて変化するゲージ。<br>状態が悪くても、等しく美しい別の夜空。</p>
     </div>
   </section>
 
   <div class="rule"></div>
 
-  <!-- ── CTA ── -->
-  <section class="cta">
+  <section class="cta fade-section">
     <div class="cta-box">
       <div class="label">CLOSED TESTING</div>
       <h2>観測員を募集しています</h2>
-      <p>
-        リリース前のクローズドテストに<br>
-        参加いただける方を探しています。<br><br>
-        もし、この研究所を<br>
-少し覗いてみたいなら。
-      </p>
-      <a href="https://note.com/monday_reset" target="_blank" rel="noopener" class="cta-btn">
-        note を見る
-      </a>
+      <p>リリース前のクローズドテストに<br>参加いただける方を探しています。<br><br>もし、この研究所を<br>少し覗いてみたいなら。</p>
+      <a href="https://note.com/monday_reset" target="_blank" rel="noopener" class="cta-btn">note を見る</a>
     </div>
   </section>
 
-  <!-- ── Footer ── -->
   <footer>
     <div class="studio">StudioAINE</div>
     <nav>
@@ -519,7 +176,6 @@ footer .copy{
     </nav>
     <div class="copy">&copy; 2026 StudioAINE</div>
   </footer>
-
 </div>
 
 <script>
@@ -531,21 +187,15 @@ for(let i=0;i<50;i++){
   d.appendChild(s);
 }
 
-// ── 星（アプリと同じ配置 + ランダム追加） ──
+// ── 星 ──
 const st=document.getElementById('stars');
-const fixedStars=[
-  [15,8,1.5],[32,5,1],[68,12,2],[82,6,1.2],[91,18,1.8],
-  [5,22,1],[45,3,1.5],[75,25,1.2],[25,15,0.8],[55,18,1],
-  [88,35,1.5],[12,38,0.8],[62,8,1.2],[38,28,1],[95,8,1.8]
-];
+const fixedStars=[[15,8,1.5],[32,5,1],[68,12,2],[82,6,1.2],[91,18,1.8],[5,22,1],[45,3,1.5],[75,25,1.2],[25,15,0.8],[55,18,1],[88,35,1.5],[12,38,0.8],[62,8,1.2],[38,28,1],[95,8,1.8]];
 fixedStars.forEach(([x,y,sz])=>{
   const s=document.createElement('span');
-  const cls=sz>=1.8?'s3':sz>=1.2?'s2':'s1';
-  s.className=cls;
+  s.className=sz>=1.8?'s3':sz>=1.2?'s2':'s1';
   s.style.cssText=`left:${x}%;top:${y}%;animation-delay:${(Math.random()*4).toFixed(1)}s;animation-duration:${(Math.random()*3+3).toFixed(1)}s`;
   st.appendChild(s);
 });
-// ランダム追加（画面全体に散らす）
 for(let i=0;i<20;i++){
   const s=document.createElement('span');
   const r=Math.random();
@@ -554,32 +204,36 @@ for(let i=0;i<20;i++){
   st.appendChild(s);
 }
 
-// ── 流れ星（5〜10秒ごとに1本） ──
+// ── 流れ星 ──
 const bg=document.querySelector('.bg-fixed');
 function spawnShootingStar(){
   const el=document.createElement('div');
   el.className='shooting-star';
- const x=70+Math.random()*25;
-const y=Math.random()*20;
-  const angle=135;
+  const x=70+Math.random()*25;
+  const y=Math.random()*20;
   const dur=0.8+Math.random()*0.5;
   const len=60+Math.random()*50;
-  el.style.cssText=`
-  left:${x}%;
-  top:${y}%;
-  width:${len}px;
-  animation-duration:${dur}s
-`;
+  el.style.cssText=`left:${x}%;top:${y}%;width:${len}px;animation-duration:${dur}s`;
   bg.appendChild(el);
   setTimeout(()=>el.remove(), dur*1000+100);
 }
 function scheduleNext(){
-  const wait=5000+Math.random()*5000;
-  setTimeout(()=>{spawnShootingStar();scheduleNext()}, wait);
+  setTimeout(()=>{spawnShootingStar();scheduleNext()}, 5000+Math.random()*5000);
 }
-// 最初の1本は2秒後
 setTimeout(()=>{spawnShootingStar();scheduleNext()}, 2000);
-</script>
 
+// ── スクロール時フェード ──
+const fadeEls=document.querySelectorAll('.fade-section');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+},{threshold:0.15});
+fadeEls.forEach(el=>{
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
