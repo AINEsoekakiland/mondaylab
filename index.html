@@ -50,9 +50,22 @@ body{
   border-radius:50%;background:rgba(200,220,255,0.25);
   animation:twinkle 4s ease-in-out infinite alternate;
 }
-.bg-stars .s1{width:1px;height:1px}
-.bg-stars .s2{width:1.5px;height:1.5px}
-.bg-stars .s3{width:2px;height:2px;background:rgba(220,235,255,0.35)}
+.bg-stars .s1{
+  width:2px;
+  height:2px;
+}
+
+.bg-stars .s2{
+  width:3px;
+  height:3px;
+}
+
+.bg-stars .s3{
+  width:4.5px;
+  height:4.5px;
+  background:rgba(220,235,255,0.45);
+  box-shadow:0 0 8px rgba(200,220,255,0.35);
+}
 @keyframes twinkle{0%{opacity:0.12}100%{opacity:0.6}}
 
 /* ── 流れ星 ── */
@@ -67,10 +80,29 @@ body{
   animation:shoot linear forwards;
 }
 @keyframes shoot{
-  0%  {opacity:0;   transform:translateX(0) translateY(0)}
-  8%  {opacity:1}
-  70% {opacity:0.8}
-  100%{opacity:0;   transform:translateX(-220px) translateY(140px)}
+  0%{
+    opacity:0;
+    transform:
+      translate(0,0)
+      rotate(35deg)
+      scaleX(0.7);
+  }
+
+  10%{
+    opacity:1;
+  }
+
+  60%{
+    opacity:0.9;
+  }
+
+  100%{
+    opacity:0;
+    transform:
+      translate(-320px,180px)
+      rotate(35deg)
+      scaleX(1);
+  }
 }
 
 /* ── 共通 ── */
@@ -443,9 +475,9 @@ const bg=document.querySelector('.bg-fixed');
 function spawnShootingStar(){
   const el=document.createElement('div');
   el.className='shooting-star';
-  const x=30+Math.random()*60;
-  const y=Math.random()*30;
-  const angle=30+Math.random()*20;
+ const x=70+Math.random()*25;
+const y=Math.random()*20;
+  const angle=135;
   const dur=0.8+Math.random()*0.5;
   const len=60+Math.random()*50;
   el.style.cssText=`left:${x}%;top:${y}%;width:${len}px;transform:rotate(${angle}deg);animation-duration:${dur}s`;
