@@ -25,14 +25,21 @@ body{
 
 /* ── 背景演出 ── */
 .bg-fixed{
-  position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:linear-gradient(to bottom,
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+
+  background:linear-gradient(
+    to bottom,
     #1A3551,
     #122B45,
     #0D1B2A,
     #081421,
     #050D17
   );
+
+  animation:bgFloat 18s ease-in-out infinite;
 }
 .bg-light{
   position:absolute;inset:0;
@@ -49,24 +56,61 @@ body{
   position:absolute;
   border-radius:50%;background:rgba(200,220,255,0.25);
   animation:twinkle 4s ease-in-out infinite alternate;
+  starFloat 18s ease-in-out infinite;
 }
 .bg-stars .s1{
   width:2px;
   height:2px;
+  background:rgba(150,180,255,0.22);
 }
 
 .bg-stars .s2{
   width:3px;
   height:3px;
+  background:rgba(210,225,255,0.32);
 }
 
 .bg-stars .s3{
   width:4.5px;
   height:4.5px;
-  background:rgba(220,235,255,0.45);
-  box-shadow:0 0 8px rgba(200,220,255,0.35);
+
+  background:rgba(255,255,255,0.55);
+
+  box-shadow:
+    0 0 6px rgba(200,220,255,0.25),
+    0 0 14px rgba(180,210,255,0.18);
+
+  filter:blur(0.2px);
 }
 @keyframes twinkle{0%{opacity:0.12}100%{opacity:0.6}}
+  
+  @keyframes starFloat{
+  0%{
+    transform:translate(0px,0px);
+  }
+
+  50%{
+    transform:translate(2px,-3px);
+  }
+
+  100%{
+    transform:translate(0px,0px);
+  }
+}
+
+  @keyframes bgFloat{
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-6px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+}
 
 /* ── 流れ星 ── */
 .shooting-star{
@@ -150,6 +194,7 @@ section{padding:0 28px}
   pointer-events:none;
   mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);
   -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);
+  animation:silhouetteBreath 14s ease-in-out infinite;
 }
 .hero-eyebrow{
   font-size:16px;letter-spacing:6px;
@@ -179,9 +224,42 @@ section{padding:0 28px}
   color:rgba(196,168,130,0.5);
   animation:fadeUp 1.2s 0.6s ease both;
 }
+  <div class="scroll-note">observe quietly</div>
+  .scroll-note{
+  position:absolute;
+  bottom:24px;
+
+  font-size:11px;
+  letter-spacing:4px;
+
+  color:rgba(160,180,200,0.22);
+
+  animation:fadePulse 4s ease-in-out infinite;
+}
+  @keyframes fadePulse{
+  0%{opacity:0.12}
+  50%{opacity:0.32}
+  100%{opacity:0.12}
+}
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1;transform:translateY(0)}
+  @keyframes silhouetteBreath{
+  0%{
+    transform:scale(1) translateY(0px);
+    opacity:0.82;
+  }
+
+  50%{
+    transform:scale(1.015) translateY(-2px);
+    opacity:0.88;
+  }
+
+  100%{
+    transform:scale(1) translateY(0px);
+    opacity:0.82;
+  }
+}
 }
 
 /* ── About ── */
@@ -422,7 +500,8 @@ footer .copy{
       <p>
         リリース前のクローズドテストに<br>
         参加いただける方を探しています。<br><br>
-        詳しくは note にて。
+        もし、この研究所を<br>
+少し覗いてみたいなら。
       </p>
       <a href="https://note.com/monday_reset" target="_blank" rel="noopener" class="cta-btn">
         note を見る
