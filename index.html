@@ -1,3 +1,10 @@
+その視点、本当にその通りですね。「動き」ではなく「空気」をデザインするという考え方は、この研究所の静謐な世界観にとって非常に重要です。
+
+backdrop-filter を加えることでガラスのような質感が生まれ、border-radius の微調整でモダンな手触りが加わりました。これで、サイト全体がより洗練された「観測空間」に昇華されたはずです。
+
+ご提案いただいた修正をすべて適用した完成形コードです。
+
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,8 +30,12 @@ body{
   overflow-x:hidden;
 }
 
-/* ── フェード用 ── */
-.fade-section{opacity:0;transform:translateY(20px);transition:opacity 1.2s ease, transform 1.2s ease}
+/* ── フェード用（空気感の演出） ── */
+.fade-section{
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 1.4s ease, transform 1.4s ease;
+}
 .fade-section.visible{opacity:1;transform:translateY(0)}
 
 /* ── 背景演出 ── */
@@ -82,7 +93,15 @@ section{padding:0 28px}
 .about,.features,.cta{padding:80px 28px;max-width:560px;margin:0 auto}
 .about p{font-size:16px;color:rgba(180,195,210,0.65);line-height:2.4;margin-bottom:18px}
 .about .quiet{font-size:16px;color:rgba(140,160,178,0.45);margin-top:32px;letter-spacing:1px;line-height:2.2}
-.feature-card{background:linear-gradient(170deg, rgba(17,31,48,0.8), rgba(13,26,40,0.6));border:0.5px solid rgba(139,167,191,0.1);border-radius:3px;padding:24px 22px;margin-bottom:14px;transform:rotate(var(--tilt,0deg))}
+.feature-card{
+  background:linear-gradient(170deg, rgba(17,31,48,0.8), rgba(13,26,40,0.6));
+  backdrop-filter:blur(6px);
+  border:0.5px solid rgba(139,167,191,0.1);
+  border-radius:8px;
+  padding:24px 22px;
+  margin-bottom:14px;
+  transform:rotate(var(--tilt,0deg));
+}
 .feature-card .num{font-size:15px;letter-spacing:3px;color:rgba(139,167,191,0.35);margin-bottom:8px}
 .feature-card h3{font-size:16px;font-weight:400;color:rgba(200,215,228,0.8);letter-spacing:1px;margin-bottom:8px}
 .feature-card p{font-size:16px;color:rgba(140,160,178,0.5);line-height:2}
@@ -179,15 +198,12 @@ footer .copy{font-size:16px;color:rgba(122,143,160,0.25);letter-spacing:1px}
 </div>
 
 <script>
-// ── 微粒子 ──
 const d=document.getElementById('dust');
 for(let i=0;i<50;i++){
   const s=document.createElement('span');
   s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;opacity:${(Math.random()*0.2+0.05).toFixed(2)}`;
   d.appendChild(s);
 }
-
-// ── 星 ──
 const st=document.getElementById('stars');
 const fixedStars=[[15,8,1.5],[32,5,1],[68,12,2],[82,6,1.2],[91,18,1.8],[5,22,1],[45,3,1.5],[75,25,1.2],[25,15,0.8],[55,18,1],[88,35,1.5],[12,38,0.8],[62,8,1.2],[38,28,1],[95,8,1.8]];
 fixedStars.forEach(([x,y,sz])=>{
@@ -203,8 +219,6 @@ for(let i=0;i<20;i++){
   s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*70}%;animation-delay:${(Math.random()*5).toFixed(1)}s;animation-duration:${(Math.random()*4+3).toFixed(1)}s`;
   st.appendChild(s);
 }
-
-// ── 流れ星 ──
 const bg=document.querySelector('.bg-fixed');
 function spawnShootingStar(){
   const el=document.createElement('div');
@@ -221,8 +235,6 @@ function scheduleNext(){
   setTimeout(()=>{spawnShootingStar();scheduleNext()}, 5000+Math.random()*5000);
 }
 setTimeout(()=>{spawnShootingStar();scheduleNext()}, 2000);
-
-// ── スクロール時フェード ──
 const fadeEls=document.querySelectorAll('.fade-section');
 const observer=new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
@@ -237,3 +249,5 @@ fadeEls.forEach(el=>{
 </script>
 </body>
 </html>
+
+```
