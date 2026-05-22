@@ -14,37 +14,15 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  background:#050D17;
-  color:rgba(200,215,228,0.82);
-  font-family:'Noto Sans JP',sans-serif;
-  font-weight:300;
-  line-height:2;
-  overflow-x:hidden;
-}
+body{background:#050D17;color:rgba(200,215,228,0.82);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:2;overflow-x:hidden}
 
-/* ── フェード用（空気感の演出） ── */
-.fade-section{
-  opacity:0;
-  transform:translateY(10px);
-  transition:opacity 1.4s ease, transform 1.4s ease;
-}
+/* ── フェード演出 ── */
+.fade-section{opacity:0;transform:translateY(10px);transition:opacity 1.4s ease, transform 1.4s ease}
 .fade-section.visible{opacity:1;transform:translateY(0)}
 
 /* ── 背景演出 ── */
-.bg-fixed{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background:linear-gradient(to bottom, #1A3551, #122B45, #0D1B2A, #081421, #050D17);
-  animation:bgFloat 18s ease-in-out infinite;
-}
-.bg-light{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse at 12% 8%, rgba(140,170,220,0.05), transparent 55%),
-              radial-gradient(ellipse at 85% 90%, rgba(196,168,130,0.025), transparent 40%);
-}
+.bg-fixed{position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(to bottom, #1A3551, #122B45, #0D1B2A, #081421, #050D17);animation:bgFloat 18s ease-in-out infinite}
+.bg-light{position:absolute;inset:0;background:radial-gradient(ellipse at 12% 8%, rgba(140,170,220,0.05), transparent 55%), radial-gradient(ellipse at 85% 90%, rgba(196,168,130,0.025), transparent 40%)}
 .bg-dust{position:absolute;inset:0;overflow:hidden}
 .bg-dust span{position:absolute;width:1px;height:1px;border-radius:50%;background:rgba(160,185,220,0.12)}
 .bg-stars{position:absolute;inset:0;overflow:hidden}
@@ -61,7 +39,7 @@ body{
 .shooting-star{position:absolute;height:2px;background:linear-gradient(to left, rgba(255,255,255,0.95), rgba(170,220,255,0.6), transparent);border-radius:999px;opacity:0;pointer-events:none;transform:rotate(135deg);box-shadow:0 0 10px rgba(180,220,255,0.35);animation:shoot linear forwards}
 @keyframes shoot{0%{opacity:0;translate:0 0}8%{opacity:1}70%{opacity:0.9}100%{opacity:0;translate:-340px 220px}}
 
-/* ── 共通 ── */
+/* ── 共通レイアウト ── */
 .content{position:relative;z-index:1}
 section{padding:0 28px}
 .rule{height:1px;background:linear-gradient(to right, transparent, rgba(139,167,191,0.22), transparent);margin:0 auto;max-width:560px;opacity:0.7}
@@ -82,28 +60,22 @@ section{padding:0 28px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes silhouetteBreath{0%,100%{transform:scale(1) translateY(0px);opacity:0.82}50%{transform:scale(1.015) translateY(-2px);opacity:0.88}}
 
-/* ── 各セクション ── */
-.about,.features,.cta{padding:80px 28px;max-width:560px;margin:0 auto}
-.about p{font-size:16px;color:rgba(180,195,210,0.65);line-height:2.4;margin-bottom:18px}
-.about .quiet{font-size:16px;color:rgba(140,160,178,0.45);margin-top:32px;letter-spacing:1px;line-height:2.2}
-.feature-card{
-  background:linear-gradient(170deg, rgba(17,31,48,0.8), rgba(13,26,40,0.6));
-  backdrop-filter:blur(6px);
-  border:0.5px solid rgba(139,167,191,0.1);
-  border-radius:8px;
-  padding:24px 22px;
-  margin-bottom:14px;
-  transform:rotate(var(--tilt,0deg));
-}
+/* ── セクション共通・中央寄せ ── */
+.about,.features,.cta{padding:80px 28px;max-width:560px;margin:0 auto;text-align:center}
+.about p, .cta-box p{text-align:center}
+.about .quiet{margin-top:32px;letter-spacing:1px;line-height:2.2}
+
+.feature-card{background:linear-gradient(170deg, rgba(17,31,48,0.8), rgba(13,26,40,0.6));backdrop-filter:blur(6px);border:0.5px solid rgba(139,167,191,0.1);border-radius:8px;padding:24px 22px;margin-bottom:14px;transform:rotate(var(--tilt,0deg))}
 .feature-card .num{font-size:15px;letter-spacing:3px;color:rgba(139,167,191,0.35);margin-bottom:8px}
-.feature-card h3{font-size:16px;font-weight:400;color:rgba(200,215,228,0.8);letter-spacing:1px;margin-bottom:8px}
-.feature-card p{font-size:16px;color:rgba(140,160,178,0.5);line-height:2}
+.feature-card h3{font-size:16px;font-weight:400;color:rgba(200,215,228,0.8);letter-spacing:1px;margin-bottom:8px;text-align:center}
+.feature-card p{font-size:16px;color:rgba(140,160,178,0.5);line-height:2;text-align:center}
+
 .cta-box{max-width:480px;margin:0 auto;padding:40px 32px;border:0.5px solid rgba(196,168,130,0.15);border-radius:3px;background:rgba(14,29,44,0.5)}
 .cta-box .label{font-size:15px;letter-spacing:4px;color:rgba(196,168,130,0.45);margin-bottom:16px}
 .cta-box h2{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:300;color:rgba(220,230,240,0.85);letter-spacing:2px;margin-bottom:12px}
-.cta-box p{font-size:16px;color:rgba(160,178,195,0.55);line-height:2.2;margin-bottom:28px}
 .cta-btn{display:inline-block;padding:14px 40px;background:rgba(139,167,191,0.12);border:0.5px solid rgba(139,167,191,0.25);border-radius:4px;color:rgba(200,215,228,0.8);font-size:15px;font-weight:400;letter-spacing:2px;text-decoration:none;transition:background 0.3s, border-color 0.3s}
 .cta-btn:hover{background:rgba(139,167,191,0.2);border-color:rgba(139,167,191,0.4)}
+
 footer{padding:48px 28px 64px;text-align:center;border-top:1px solid rgba(139,167,191,0.08)}
 footer .studio{font-size:15px;letter-spacing:3px;color:rgba(122,143,160,0.4);margin-bottom:12px}
 footer nav{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:16px}
@@ -116,11 +88,7 @@ footer .copy{font-size:16px;color:rgba(122,143,160,0.25);letter-spacing:1px}
 </head>
 <body>
 
-<div class="bg-fixed">
-  <div class="bg-light"></div>
-  <div class="bg-dust" id="dust"></div>
-  <div class="bg-stars" id="stars"></div>
-</div>
+<div class="bg-fixed"><div class="bg-light"></div><div class="bg-dust" id="dust"></div><div class="bg-stars" id="stars"></div></div>
 
 <div class="content">
   <section class="hero">
@@ -135,9 +103,7 @@ footer .copy{font-size:16px;color:rgba(122,143,160,0.25);letter-spacing:1px}
   <div class="rule"></div>
 
   <section class="about fade-section">
-    <div class="section-label">
-      <div class="line"></div><span>このアプリについて</span><div class="line"></div>
-    </div>
+    <div class="section-label"><div class="line"></div><span>このアプリについて</span><div class="line"></div></div>
     <p>眠れない夜に、<br>頑張らなくていいアプリ。</p>
     <p>習慣化しなくていい。<br>クリアしなくていい。<br>開けない日があっても大丈夫。</p>
     <p>ただ静かに、<br>自分の脳の疲れを観測して、<br>そのまま眠りに落ちるための場所です。</p>
@@ -147,25 +113,11 @@ footer .copy{font-size:16px;color:rgba(122,143,160,0.25);letter-spacing:1px}
   <div class="rule"></div>
 
   <section class="features fade-section">
-    <div class="section-label">
-      <div class="line"></div><span>観測内容</span><div class="line"></div>
-    </div>
-    <div class="feature-card" style="--tilt:-0.6deg">
-      <div class="num">001</div><h3>空模様チェック</h3>
-      <p>今夜の脳の天気を、記号で静かに観測する。<br>改善も助言もない、ただの記録。</p>
-    </div>
-    <div class="feature-card" style="--tilt:0.4deg">
-      <div class="num">002</div><h3>観測タスク</h3>
-      <p>紙片を集める。レンズを拭く。<br>スコアのない、寝落ちするための単純作業。</p>
-    </div>
-    <div class="feature-card" style="--tilt:-0.3deg">
-      <div class="num">003</div><h3>資料室</h3>
-      <p>観測の翌日に届く、圧倒的につまらない研究資料。<br>読まなくて大丈夫です。</p>
-    </div>
-    <div class="feature-card" style="--tilt:0.7deg">
-      <div class="num">004</div><h3>呼吸する輪</h3>
-      <p>脳疲労の状態に応じて変化するゲージ。<br>状態が悪くても、等しく美しい別の夜空。</p>
-    </div>
+    <div class="section-label"><div class="line"></div><span>観測内容</span><div class="line"></div></div>
+    <div class="feature-card" style="--tilt:-0.6deg"><div class="num">001</div><h3>空模様チェック</h3><p>今夜の脳の天気を、記号で静かに観測する。<br>改善も助言もない、ただの記録。</p></div>
+    <div class="feature-card" style="--tilt:0.4deg"><div class="num">002</div><h3>観測タスク</h3><p>紙片を集める。レンズを拭く。<br>スコアのない、寝落ちするための単純作業。</p></div>
+    <div class="feature-card" style="--tilt:-0.3deg"><div class="num">003</div><h3>資料室</h3><p>観測の翌日に届く、圧倒的につまらない研究資料。<br>読まなくて大丈夫です。</p></div>
+    <div class="feature-card" style="--tilt:0.7deg"><div class="num">004</div><h3>呼吸する輪</h3><p>脳疲労の状態に応じて変化するゲージ。<br>状態が悪くても、等しく美しい別の夜空。</p></div>
   </section>
 
   <div class="rule"></div>
@@ -179,7 +131,6 @@ footer .copy{font-size:16px;color:rgba(122,143,160,0.25);letter-spacing:1px}
     </div>
   </section>
 
-<!-- ── Footer ── -->
   <footer>
     <div class="studio">StudioAINE</div>
     <nav>
@@ -243,5 +194,3 @@ fadeEls.forEach(el=>{
 </script>
 </body>
 </html>
-
-```
