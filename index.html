@@ -15,7 +15,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  background:#080F18;
+  background:#050D17;
   color:rgba(200,215,228,0.82);
   font-family:'Noto Sans JP',sans-serif;
   font-weight:300;
@@ -26,6 +26,13 @@ body{
 /* ── 背景演出 ── */
 .bg-fixed{
   position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:linear-gradient(to bottom,
+    #1A3551,
+    #122B45,
+    #0D1B2A,
+    #081421,
+    #050D17
+  );
 }
 .bg-light{
   position:absolute;inset:0;
@@ -39,11 +46,32 @@ body{
 }
 .bg-stars{position:absolute;inset:0;overflow:hidden}
 .bg-stars span{
-  position:absolute;width:1.5px;height:1.5px;
+  position:absolute;
   border-radius:50%;background:rgba(200,220,255,0.25);
   animation:twinkle 4s ease-in-out infinite alternate;
 }
-@keyframes twinkle{0%{opacity:0.15}100%{opacity:0.55}}
+.bg-stars .s1{width:1px;height:1px}
+.bg-stars .s2{width:1.5px;height:1.5px}
+.bg-stars .s3{width:2px;height:2px;background:rgba(220,235,255,0.35)}
+@keyframes twinkle{0%{opacity:0.12}100%{opacity:0.6}}
+
+/* ── 流れ星 ── */
+.shooting-star{
+  position:absolute;
+  width:80px;height:1.5px;
+  background:linear-gradient(to left, rgba(255,255,255,0.9), rgba(170,220,255,0.5), transparent);
+  border-radius:1px;
+  opacity:0;
+  pointer-events:none;
+  transform-origin:right center;
+  animation:shoot linear forwards;
+}
+@keyframes shoot{
+  0%  {opacity:0;   transform:translateX(0) translateY(0)}
+  8%  {opacity:1}
+  70% {opacity:0.8}
+  100%{opacity:0;   transform:translateX(-220px) translateY(140px)}
+}
 
 /* ── 共通 ── */
 .content{position:relative;z-index:1}
@@ -71,7 +99,20 @@ section{padding:0 28px}
   display:flex;flex-direction:column;
   justify-content:center;align-items:center;
   text-align:center;
-  padding:80px 28px;
+  padding:80px 28px 0;
+  position:relative;
+}
+.hero-silhouette{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  width:100%;
+  max-height:35vh;
+  object-fit:cover;
+  object-position:bottom;
+  opacity:0.85;
+  pointer-events:none;
+  mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);
+  -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,1) 40%, transparent);
 }
 .hero-eyebrow{
   font-size:16px;letter-spacing:6px;
@@ -265,6 +306,7 @@ footer .copy{
       夜に呼吸を戻す場所。
     </p>
     <p class="hero-concept">─ 夜の脳疲労観測所 ─</p>
+    <img class="hero-silhouette" src="./silhouette.png" alt="">
   </section>
 
   <div class="rule"></div>
@@ -365,20 +407,57 @@ footer .copy{
 </div>
 
 <script>
-// 微粒子
+// ── 微粒子 ──
 const d=document.getElementById('dust');
-for(let i=0;i<40;i++){
+for(let i=0;i<50;i++){
   const s=document.createElement('span');
-  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;opacity:${(Math.random()*0.22+0.06).toFixed(2)}`;
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;opacity:${(Math.random()*0.2+0.05).toFixed(2)}`;
   d.appendChild(s);
 }
-// 星
+
+// ── 星（アプリと同じ配置 + ランダム追加） ──
 const st=document.getElementById('stars');
-for(let i=0;i<18;i++){
+const fixedStars=[
+  [15,8,1.5],[32,5,1],[68,12,2],[82,6,1.2],[91,18,1.8],
+  [5,22,1],[45,3,1.5],[75,25,1.2],[25,15,0.8],[55,18,1],
+  [88,35,1.5],[12,38,0.8],[62,8,1.2],[38,28,1],[95,8,1.8]
+];
+fixedStars.forEach(([x,y,sz])=>{
   const s=document.createElement('span');
-  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${(Math.random()*4).toFixed(1)}s;animation-duration:${(Math.random()*3+3).toFixed(1)}s`;
+  const cls=sz>=1.8?'s3':sz>=1.2?'s2':'s1';
+  s.className=cls;
+  s.style.cssText=`left:${x}%;top:${y}%;animation-delay:${(Math.random()*4).toFixed(1)}s;animation-duration:${(Math.random()*3+3).toFixed(1)}s`;
+  st.appendChild(s);
+});
+// ランダム追加（画面全体に散らす）
+for(let i=0;i<20;i++){
+  const s=document.createElement('span');
+  const r=Math.random();
+  s.className=r>0.85?'s3':r>0.5?'s2':'s1';
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*70}%;animation-delay:${(Math.random()*5).toFixed(1)}s;animation-duration:${(Math.random()*4+3).toFixed(1)}s`;
   st.appendChild(s);
 }
+
+// ── 流れ星（5〜10秒ごとに1本） ──
+const bg=document.querySelector('.bg-fixed');
+function spawnShootingStar(){
+  const el=document.createElement('div');
+  el.className='shooting-star';
+  const x=30+Math.random()*60;
+  const y=Math.random()*30;
+  const angle=30+Math.random()*20;
+  const dur=0.8+Math.random()*0.5;
+  const len=60+Math.random()*50;
+  el.style.cssText=`left:${x}%;top:${y}%;width:${len}px;transform:rotate(${angle}deg);animation-duration:${dur}s`;
+  bg.appendChild(el);
+  setTimeout(()=>el.remove(), dur*1000+100);
+}
+function scheduleNext(){
+  const wait=5000+Math.random()*5000;
+  setTimeout(()=>{spawnShootingStar();scheduleNext()}, wait);
+}
+// 最初の1本は2秒後
+setTimeout(()=>{spawnShootingStar();scheduleNext()}, 2000);
 </script>
 
 </body>
